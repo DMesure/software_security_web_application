@@ -10,7 +10,7 @@ function Recipes() {
   useEffect(() => {
     (async () => {
       try{
-        const accessToken = await getAccessTokenSilently({audience: process.env.REACT_APP_AUTH0_AUDIENCE, scope: "openid profile email"});
+        const accessToken = await getAccessTokenSilently();
         console.log(accessToken);
 
         fetch(`${process.env.REACT_APP_AUTH0_AUDIENCE}/recipes`, {headers: {Authorization: `Bearer ${accessToken}`}} )
