@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 
 
@@ -9,35 +9,34 @@ function Recipes() {
 
   useEffect(() => {
     (async () => {
-      try{
+      try {
         const accessToken = await getAccessTokenSilently();
-        console.log(accessToken);
 
-        fetch(`${process.env.REACT_APP_AUTH0_AUDIENCE}/recipes`, {headers: {Authorization: `Bearer ${accessToken}`}} )
-        .then(res => {
-          return(res.json());
-        })
-        .then(res => setRecipes(res))
-        .catch(err => {
-          console.log(err);
-        })
+        fetch(`${process.env.REACT_APP_AUTH0_AUDIENCE}/recipes`, { headers: { Authorization: `Bearer ${accessToken}` } })
+          .then(res => {
+            return (res.json());
+          })
+          .then(res => setRecipes(res))
+          .catch(err => {
+            console.log(err);
+          })
       }
-      catch(e){
+      catch (e) {
         console.log(e);
       }
     })();
   }, [user])
 
-    console.log(recipes);
+  console.log(recipes);
 
   return (
     <div>
-        <h2>Recipes</h2>
-        {recipes && (
-          <div>
-            recipes received
-          </div>
-        )}
+      <h2>Recipes</h2>
+      {recipes && (
+        <div>
+          recipes received
+        </div>
+      )}
     </div>
   );
 }
