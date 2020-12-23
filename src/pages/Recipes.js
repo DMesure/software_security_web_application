@@ -12,6 +12,7 @@ function Recipes() {
       try {
         const accessToken = await getAccessTokenSilently();
 
+        console.log(accessToken);
         fetch(`${process.env.REACT_APP_AUTH0_AUDIENCE}/recipes`, { headers: { Authorization: `Bearer ${accessToken}` } })
           .then(res => {
             return (res.json());
