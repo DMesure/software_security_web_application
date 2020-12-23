@@ -27,7 +27,7 @@ function Recipes() {
     //     }
     //   })();
     console.log("pik");
-    getAccessTokenSilently().then((res) => console.log(res)).catch((err) => console.log(err));
+    getAccessTokenSilently({audience: process.env.REACT_APP_AUTH0_AUDIENCE, scope: "openid profile email",}).then((res) => console.log(res)).catch((err) => console.log(err));
 
 
   }, [user])
