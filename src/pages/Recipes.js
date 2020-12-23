@@ -8,25 +8,31 @@ function Recipes() {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
-    (async () => {
-      try {
-        const accessToken = await getAccessTokenSilently();
+  //   (async () => {
+  //     try {
+  //       const accessToken = await getAccessTokenSilently();
 
-        console.log(accessToken);
-        fetch(`${process.env.REACT_APP_AUTH0_AUDIENCE}/recipes`, { headers: { Authorization: `Bearer ${accessToken}` } })
-          .then(res => {
-            return (res.json());
-          })
-          .then(res => setRecipes(res))
-          .catch(err => {
-            console.log(err);
-          })
-      }
-      catch (e) {
-        console.log(e);
-      }
-    })();
+  //       console.log(accessToken);
+  //       fetch(`${process.env.REACT_APP_AUTH0_AUDIENCE}/recipes`, { headers: { Authorization: `Bearer ${accessToken}` } })
+  //         .then(res => {
+  //           return (res.json());
+  //         })
+  //         .then(res => setRecipes(res))
+  //         .catch(err => {
+  //           console.log(err);
+  //         })
+  //     }
+  //     catch (e) {
+  //       console.log(e);
+  //     }
+  //   })();
+  const accessToken = await getAccessTokenSilently();
+
+  console.log(accessToken);
+
   }, [user])
+
+  
 
   console.log(recipes);
 
