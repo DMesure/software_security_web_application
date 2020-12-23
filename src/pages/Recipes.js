@@ -26,6 +26,7 @@ function Recipes() {
     //       console.log(e);
     //     }
     //   })();
+    console.log("pik");
     getAccessTokenSilently().then((res) => console.log(res)).catch((err) => console.log(err));
 
 
