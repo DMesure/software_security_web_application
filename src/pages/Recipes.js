@@ -1,33 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth0 } from "@auth0/auth0-react";
+// import { useAuth0 } from "@auth0/auth0-react";
 
 
 function Recipes() {
-  const { user, getAccessTokenSilently } = useAuth0();
-
+  // const { getAccessTokenSilently } = useAuth0();
+  // const [accessToken, setAccessToken] = useState("");
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
-    (async () => {
-      try {
-        const accessToken = await getAccessTokenSilently();
 
-        console.log(accessToken);
-        fetch(`${process.env.REACT_APP_AUTH0_AUDIENCE}/recipes`, { headers: { Authorization: `Bearer ${accessToken}` } })
-          .then(res => {
-            return (res.json());
-          })
-          .then(res => setRecipes(res))
-          .catch(err => {
-            console.log(err);
-          })
-      }
-      catch (e) {
-        console.log(e);
-      }
-    })();
-  }, [user, getAccessTokenSilently])
+    // getAccessTokenSilently().then(res => setAccessToken(res)).catch(err => console.log(err));
 
+    fetch(`${process.env.REACT_APP_AUTH0_AUDIENCE}/recipes`)
+      .then(res => {
+        return (res.json());
+      })
+      .then(res => setRecipes(res))
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
 
 
   console.log(recipes);
@@ -35,11 +27,11 @@ function Recipes() {
   return (
     <div>
       <h2>Recipes</h2>
-      {recipes && (
+      {recipes.length ? (
         <div>
           recipes received
         </div>
-      )}
+      ) : <p>Loading...</p>}
     </div>
   );
 }
