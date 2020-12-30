@@ -26,7 +26,7 @@ function Recipes() {
         console.log(e);
       }
     })();
-  }, [user])
+  }, [user, getAccessTokenSilently])
 
 
 
