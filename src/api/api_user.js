@@ -1,7 +1,6 @@
-
 export function getUser(accessToken) {
     return fetch(
-        `${process.env.REACT_APP_AUTH0_AUDIENCE}/users`, { headers: { Authorization: `Bearer ${accessToken}` } }
+        `${process.env.REACT_APP_AUTH0_AUDIENCE}/user`, { headers: { Authorization: `Bearer ${accessToken}` } }
     )
         .then(res => {
             if (res.status === 200) {

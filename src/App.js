@@ -7,6 +7,7 @@ import Header from './components/Header';
 import RecipeInfo from './pages/RecipeInfo';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Auth0Provider } from "@auth0/auth0-react";
+import AddRecipe from './pages/addRecipe';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route path="/recipes" component={Recipes} />
           <Route path="/register" component={SaveUser} />
           <Route path="/recipe/:id" component={RecipeInfo} />
+          <Route path="/addRecipe" component={AddRecipe} />
         </div>
       </Router>
     </Auth0Provider>
