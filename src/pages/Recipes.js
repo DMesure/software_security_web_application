@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import GetRecipes from '../api/api_recipes';
 // import { useAuth0 } from "@auth0/auth0-react";
+import * as recipeData from "../api/api_recipe";
+import CardDeck from "react-bootstrap/CardDeck";
+import RecipeCard from "../components/RecipeCard";
 
 
 export default function Recipes() {
@@ -24,8 +26,13 @@ export default function Recipes() {
 
 
   //   console.log(recipes);
+  const [recipes, setRecipes] = useState([]);
+
+  useEffect(() => {
+    recipeData.getRecipes().then(res => setRecipes(res)).catch(err => console.log(err));
+  }, []);
 
   return (
-    <GetRecipes />
+    <CardDeck>{recipes.length > 0 && recipes.map((m, i) => <RecipeCard {...m} key={i} />)}</CardDeck>
   );
 }

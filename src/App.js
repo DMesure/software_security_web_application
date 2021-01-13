@@ -1,10 +1,11 @@
-import logo from './logo.svg';
 import './App.css';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Recipes from './pages/Recipes';
+import SaveUser from './components/Auth';
 import Header from './components/Header';
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import RecipeInfo from './pages/RecipeInfo';
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Auth0Provider } from "@auth0/auth0-react";
 
 
@@ -18,11 +19,14 @@ function App() {
       scope="profile email openid"
     >
       <Header />
-
       <Router>
         <Route exact path="/" component={Home} />
-        <Route path="/profile" component={Profile} />
-        <Route path="/recipes" component={Recipes} />
+        <div className="container-fluid" style={{ paddingTop: "4.5rem" }}>
+          <Route path="/profile" component={Profile} />
+          <Route path="/recipes" component={Recipes} />
+          <Route path="/register" component={SaveUser} />
+          <Route path="/recipe/:id" component={RecipeInfo} />
+        </div>
       </Router>
     </Auth0Provider>
   );
