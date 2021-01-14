@@ -2,7 +2,8 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 
-export default function RecipeCard(props) {
+
+export default function RecipeCard(props) {    
 
     return (
         <Card style={{ minwidth: '18rem' }} className="col-sm-2">
@@ -12,9 +13,17 @@ export default function RecipeCard(props) {
                 <Card.Text>
                     {props.description}
                 </Card.Text>
-                <Link to={`/recipe/${props.id}`}>
+                <Link to={`/recipes/${props.id}`}>
                     <Button variant="primary">Info</Button>
                 </Link>
+                {props.canEdit ? 
+                <Link to={`/editRecipe/${props.id}`}>
+                    <Button variant="info">Edit</Button>
+                </Link>
+            : <></>}
+            {props.canDelete ? 
+                <Button variant="danger" onClick={() => props.onDelete(props.id)}>Delete</Button>
+            : <></>}
             </Card.Body>
         </Card>
     );

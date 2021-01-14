@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import * as recipeData from "../api/api_recipe";
@@ -6,17 +6,21 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useHistory } from "react-router-dom";
 
 
-export default function AddRecipe() {
+export default function EditRecipe(props) {
     const [onSubmit, setOnSubmit] = useState(false);
     const [formData, setFormData] = useState({name: "", description: ""});
     const { getAccessTokenSilently } = useAuth0();
     const history = useHistory();
 
 
+    useEffect(() => {
+        recipeData.getRecipeById(props.match.params.id).then(res => setFormData(res)).catch(err => console.log(err));
+    }, [props.match.params.id]);
+
     const handleSubmit = (prevent) => {
         prevent.preventDefault();
         getAccessTokenSilently().then(accessToken => {
-            recipeData.createRecipe(accessToken, formData).then(res => history.push(res)).catch(err => alert("Create recipe failed"));
+            recipeData.editRecipe(accessToken, formData, props.match.params.id).then(res => history.go(-1)).catch(err => alert("Edit recipe failed"));
         }).catch((err) => console.log(err));
         setOnSubmit(true);
     }

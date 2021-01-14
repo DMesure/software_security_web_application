@@ -4,31 +4,17 @@ import * as recipeData from "../api/api_recipe";
 import CardDeck from "react-bootstrap/CardDeck";
 import RecipeCard from "../components/RecipeCard";
 import * as userData from "../api/api_user";
-
+import { useHistory } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 
 export default function Recipes() {
   const { getAccessTokenSilently, user } = useAuth0();
   const [accessToken, setAccessToken] = useState("");
-  //   const [recipes, setRecipes] = useState([]);
-
-  //   useEffect(() => {
-
-  //     // getAccessTokenSilently().then(res => setAccessToken(res)).catch(err => console.log(err));
-
-  //     fetch(`${process.env.REACT_APP_AUTH0_AUDIENCE}/recipes`)
-  //       .then(res => {
-  //         return (res.json());
-  //       })
-  //       .then(res => setRecipes(res))
-  //       .catch(err => {
-  //         console.log(err);
-  //       });
-  //   }, []);
-
-
-  //   console.log(recipes);
   const [recipes, setRecipes] = useState(undefined);
   const [userr, setUserr] = useState(undefined);
+  const history = useHistory();
+
 
   useEffect(() => {
     if (!recipes) {
@@ -41,6 +27,7 @@ export default function Recipes() {
           userData
             .getUser(accessToken)
             .then((profile) => {
+              setAccessToken(accessToken);
               setUserr(profile);
             })
             .catch((err) => console.log(err));
@@ -49,16 +36,27 @@ export default function Recipes() {
     }
   }, [user, getAccessTokenSilently, recipes, userr]);
 
+  const deleteRecipe = (id) => {
+    recipeData.deleteRecipe(accessToken, id).then(res => {
+      history.go(0);
+    }).catch((error) => {
+      alert(`Could not delete product: ${error.message}`);
+    });
+  };
+
   return (
     <>
+      <Link to={`/addRecipe`}>
+          <Button variant="success">+ Add Recipe</Button>
+      </Link>
       {userr ? (
         <>
           <h2>Your Recipes</h2>
           <CardDeck>{
-            recipes.filter(r => r.created_by === userr.id).map((m, i) => <RecipeCard {...m} key={i} />)
+            recipes.filter(r => r.created_by === userr.id).map((m, i) => <RecipeCard {...m} canDelete={true} canEdit={true} onDelete={deleteRecipe} key={i} />)
           }</CardDeck>
           <h2>Other Recipes</h2>
-          <CardDeck>{recipes.filter(r => r.created_by !== userr.id).map((m, i) => <RecipeCard {...m} key={i} />)
+          <CardDeck>{recipes.filter(r => r.created_by !== userr.id).map((m, i) => <RecipeCard {...m} canDelete={userr.isAdmin === 1} onDelete={deleteRecipe} key={i} />)
           }</CardDeck>
         </>) :
         <CardDeck>{recipes && recipes.map((m, i) => <RecipeCard {...m} key={i} />)}</CardDeck>

@@ -8,6 +8,7 @@ import RecipeInfo from './pages/RecipeInfo';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Auth0Provider } from "@auth0/auth0-react";
 import AddRecipe from './pages/addRecipe';
+import EditRecipe from './pages/EditRecipe';
 
 
 function App() {
@@ -24,10 +25,11 @@ function App() {
         <Route exact path="/" component={Home} />
         <div className="container-fluid" style={{ paddingTop: "4.5rem" }}>
           <Route path="/profile" component={Profile} />
-          <Route path="/recipes" component={Recipes} />
+          <Route exact path="/recipes" component={Recipes} />
           <Route path="/register" component={SaveUser} />
-          <Route path="/recipe/:id" component={RecipeInfo} />
+          <Route path="/recipes/:id" component={RecipeInfo} />
           <Route path="/addRecipe" component={AddRecipe} />
+          <Route path="/editRecipe/:id" component={EditRecipe} />
         </div>
       </Router>
     </Auth0Provider>

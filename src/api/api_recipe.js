@@ -20,3 +20,55 @@ export function getRecipeById(id) {
             alert(err);
         });
 }
+
+export function createRecipe(accessToken, recipe){
+    return fetch(`${process.env.REACT_APP_AUTH0_AUDIENCE}/recipes`, {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "content-type" : "application/json",
+        },
+        body: JSON.stringify(recipe)
+    })
+        .then(res => {
+            if (res.status === 201) {
+                return res.headers.get("Location");
+            } else {
+                return false;
+            }
+        });
+}
+
+export function editRecipe(accessToken, recipe, id){
+    return fetch(`${process.env.REACT_APP_AUTH0_AUDIENCE}/recipes/${id}`, {
+        method: "PUT",
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "content-type" : "application/json",
+        },
+        body: JSON.stringify(recipe)
+    })
+        .then(res => {
+            if (res.status === 200) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+}
+
+export function deleteRecipe(accessToken, id){
+    return fetch(`${process.env.REACT_APP_AUTH0_AUDIENCE}/recipes/${id}`, {
+        method: "DELETE",
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    })
+        .then(res => {
+            if (res.status === 200) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+}
