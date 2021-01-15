@@ -3,7 +3,6 @@ import * as userData from "../api/api_user";
 import { useHistory } from "react-router-dom";
 import React, { useState } from 'react';
 import Button from "react-bootstrap/Button";
-import { Link } from 'react-router-dom';
 
 
 export default function SaveUser() {
