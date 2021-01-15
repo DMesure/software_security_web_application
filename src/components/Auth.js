@@ -1,16 +1,20 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import * as userData from "../api/api_user";
 import { useHistory } from "react-router-dom";
+import React, { useState } from 'react';
+import Button from "react-bootstrap/Button";
+import { Link } from 'react-router-dom';
 
 
 export default function SaveUser() {
-    const { getAccessTokenSilently, isLoading } = useAuth0();
+    const { getAccessTokenSilently, isLoading, loginWithRedirect, logout } = useAuth0();
     const history = useHistory();
+    const [verified, setVerified] = useState(true);
+
+
     if (!isLoading) {
         getAccessTokenSilently().then(accessToken => {
             userData.getUser(accessToken).then(res => {
-                console.log(res);
-
                 if (res.status) {
                     console.log(res);
 
@@ -26,7 +30,23 @@ export default function SaveUser() {
                 .catch(err => {
                     console.log(err);
                 });
-        }).catch(err => console.log(err));
+        }).catch((err) => {
+            console.log(err);
+            setVerified(false);
+            setTimeout(() => {
+                logout();
+            }, 5000);
+        });
     }
-    return <h5>Loading</h5>;
+    return (
+        <div>
+            {!verified ?
+                <div>
+                    <h2>Please verify your email first</h2>
+                    <Button onClick={loginWithRedirect} variant="primary">Refresh</Button>
+                </div>
+                : <></>
+            }
+        </div>
+    )
 }

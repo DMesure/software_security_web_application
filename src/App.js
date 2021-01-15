@@ -9,6 +9,8 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Auth0Provider } from "@auth0/auth0-react";
 import AddRecipe from './pages/addRecipe';
 import EditRecipe from './pages/EditRecipe';
+import Footer from './components/Footer';
+import TermsOfUse from './pages/TermsOfUse';
 
 
 function App() {
@@ -30,8 +32,10 @@ function App() {
           <Route path="/recipes/:id" component={RecipeInfo} />
           <Route path="/addRecipe" component={AddRecipe} />
           <Route path="/editRecipe/:id" component={EditRecipe} />
+          <Route path="/termsofuse" component={TermsOfUse} />
         </div>
       </Router>
+      <Footer />
     </Auth0Provider>
   );
 }

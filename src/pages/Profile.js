@@ -14,6 +14,10 @@ const Profile = () => {
         <img src={user.picture} alt={user.name} />
         <h2>{user.name}</h2>
         <p>{user.email}</p>
+        <div></div>
+        <div>
+          <p><span><b>In case of an issue or any form of objection feel free to contact us via:</b></span><span>Phone: 0654215624</span><span>E-Mail: damien.mesure@student.ehb.be</span></p>
+        </div>
       </div>
     )
   );
