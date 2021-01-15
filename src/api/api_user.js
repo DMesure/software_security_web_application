@@ -27,3 +27,20 @@ export function saveUser(accessToken) {
             }
         });
 }
+
+export function deleteUser(accessToken, userId) {
+
+    return fetch(`${process.env.REACT_APP_AUTH0_AUDIENCE}/users/${userId}`, {
+        method: "DELETE",
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    })
+        .then(res => {
+            if (res.status === 200) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+}

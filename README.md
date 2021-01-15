@@ -1,3 +1,7 @@
+# TERM OF USE
+
+https://www.dmesure.xyz/termsofuse
+
 # Contactgegevens:
 
 - Bedrijfsnaam: FamilyFroots

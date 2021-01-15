@@ -15,7 +15,6 @@ export default function SaveUser() {
         getAccessTokenSilently().then(accessToken => {
             userData.getUser(accessToken).then(res => {
                 if (res.status) {
-                    console.log(res);
 
                     //als er een statuscode wordt teruggegeven is het foutgelopen, als status 200 is krijg je enkel response zonder de statuscode van 200
                     userData.saveUser(accessToken)
