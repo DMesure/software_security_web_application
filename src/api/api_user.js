@@ -11,6 +11,19 @@ export function getUser(accessToken) {
         });
 }
 
+export function getUserData(accessToken) {
+    return fetch(
+        `${process.env.REACT_APP_AUTH0_AUDIENCE}/getUserData`, { headers: { Authorization: `Bearer ${accessToken}` } }
+    )
+        .then(res => {
+            if (res.status === 200) {
+                return (res.json());
+            } else {
+                return res;
+            }
+        });
+}
+
 export function saveUser(accessToken) {
 
     return fetch(`${process.env.REACT_APP_AUTH0_AUDIENCE}/users`, {

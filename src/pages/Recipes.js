@@ -46,9 +46,11 @@ export default function Recipes() {
 
   return (
     <>
-      <Link to={`/addRecipe`}>
+      {userr && userr.isAdmin === 0 &&
+        <Link to={`/addRecipe`}>
           <Button variant="success">+ Add Recipe</Button>
-      </Link>
+        </Link>
+      }
       {userr ? (
         <>
           <h2>Your Recipes</h2>

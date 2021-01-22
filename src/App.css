@@ -105,3 +105,8 @@
 span {
   display: table;
 }
+.dataButton,
+.deleteButton {
+  display: block;
+  margin: 10px;
+}

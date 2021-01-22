@@ -9,8 +9,6 @@ const Profile = () => {
   const [accessToken, setAccessToken] = useState("");
   const [dbUser, setDbUser] = useState(undefined);
 
-
-
   useEffect(() => {
     if (!isLoading) {
       getAccessTokenSilently()
@@ -28,7 +26,6 @@ const Profile = () => {
   }, [isLoading, getAccessTokenSilently]);
 
 
-
   const deleteUser = () => {
     window.confirm("Are you sure you want to delete your user account?") &&
 
@@ -41,6 +38,26 @@ const Profile = () => {
         });
   };
 
+  const download = (accessToken) => {
+    var element = document.createElement('a');
+    userData.getUserData(accessToken)
+      .then((res) => {
+        let allUserData = JSON.stringify(res);
+
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(allUserData));
+        element.setAttribute('download', "userdata.txt");
+
+        element.style.display = 'none';
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
+      })
+      .catch((err) => console.log(err));
+
+  }
+
   if (isLoading) {
     return <div>Loading ...</div>;
   }
@@ -52,7 +69,10 @@ const Profile = () => {
         <h2>{user.name}</h2>
         <p>{user.email}</p>
         <div>
-          <Button onClick={deleteUser}>Delete account</Button>
+          <Button className="dataButton" onClick={() => download(accessToken)}>Download all my data</Button>
+        </div>
+        <div>
+          <Button variant="danger" className="deleteButton" onClick={deleteUser}>Delete account</Button>
         </div>
         <div>
           <p><span><b>In case of an issue or any form of objection feel free to contact us via:</b></span><span>Phone: 0654215624</span><span>E-Mail: damien.mesure@student.ehb.be</span></p>
