@@ -41,5 +41,7 @@ Het recht op rectificatie werd in beschouwing gebracht maar aangezien enkel de d
 
 # Verwerkingsactiviteiten van bijzondere persoonsgegevens: NVT
 
+# Gebruik van cookies: NVT (Enkel essentiële)
+
 Datum aanmaken register: 15 januari 2021
 Updates: /
